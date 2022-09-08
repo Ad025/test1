@@ -1,23 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
-import React from "react";
+import React,{useState} from "react";
 
 function App() {
   const [data, setData] = React.useState(null);
+  const [location, setLocation] = useState(null);
+
+
+  const handleInput = () => {
+    const locationData = location;
+    fetchServerData(locationData)
+  }
 
   React.useEffect(() => {
     fetch("/message")
       .then((res) => res.json())
       .then((data) => setData(data.message))
   }, []);
-  
 
-
-
-  async function fetchServerData() {
+  async function fetchServerData(locationData) {
+    // const locationData = "towsville"
     const data = {
       "email" : "dekhd",
-      "password": 23434,
+      "password": locationData,
     };
     const options ={
       method: "POST",
@@ -32,7 +37,7 @@ function App() {
     console.log(data)
   }
 
-  fetchServerData();
+  // fetchServerData();
 
   return (
     <div className="App">
@@ -41,7 +46,8 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
-        
+        <input placeholder="location..." onChange={e => setLocation(e.target.value)}></input>
+        <button onClick={() => handleInput()} >Search</button>
       </header>
     </div>
   );

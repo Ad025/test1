@@ -18,5 +18,5 @@ app.listen(PORT, () => {
 
 app.post('/api', (request,response) => {
   console.log('I got a request')
-  console.log(request.body.email)
+  console.log(request.body.password);
 });
