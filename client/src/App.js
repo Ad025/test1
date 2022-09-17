@@ -1,14 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
 import React,{useState} from "react";
+import PlacesAutocomplete from 'react-places-autocomplete';
+import {
+  geocodeByAddress,
+  geocodeByPlaceId,
+  getLatLng,
+} from 'react-places-autocomplete';
+import AutoComplete from './search.js';
 
 function App() {
   const [data, setData] = React.useState(null);
   const [location, setLocation] = useState(null);
 
-
   const handleInput = () => {
-    const locationData = location;
+    const locationData =location;
     fetchServerData(locationData)
   }
 
@@ -18,11 +24,12 @@ function App() {
       .then((data) => setData(data.message))
   }, []);
 
+  console.log(data)
+
   async function fetchServerData(locationData) {
     // const locationData = "towsville"
     const data = {
-      "email" : "dekhd",
-      "password": locationData,
+      "location": locationData,
     };
     const options ={
       method: "POST",
@@ -37,7 +44,7 @@ function App() {
     console.log(data)
   }
 
-  // fetchServerData();
+  fetchServerData();
 
   return (
     <div className="App">
@@ -46,8 +53,10 @@ function App() {
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
+        <AutoComplete />
         <input placeholder="location..." onChange={e => setLocation(e.target.value)}></input>
         <button onClick={() => handleInput()} >Search</button>
+        <button></button>
       </header>
     </div>
   );

@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 5001;
 app.use(express.static('public'));
-app.use(express.json({limit: '1mb'}))
+app.use(express.json({limit: '2mb'}))
 
 
 app.get("/message", (req, res) => {
@@ -18,5 +18,5 @@ app.listen(PORT, () => {
 
 app.post('/api', (request,response) => {
   console.log('I got a request')
-  console.log(request.body.password);
+  console.log(request.body);
 });
