@@ -1,53 +1,40 @@
 import { useRef, useEffect } from "react";
+import React,{useState} from "react";
+import sendLocation from './App.js';
 
-const handleInput = () => {
-   console.log("search component seearch clicked")
-   // const locationData =location;
-   // fetchServerData(locationData)
- }
+// const handleInput = () => {
+//    console.log("search component seearch clicked")
+//  }
 
-const AutoComplete = () => {
+const AutoComplete = (props) => {
  const autoCompleteRef = useRef();
- const inputRef = useRef();
+ const searchInput = useRef();
  const options = {
     componentRestrictions: { country: "Au" },
     fields: ["address_components", "geometry", "icon", "name"],
  };
+
+ const [location, setLocation] = useState(null);
+
  useEffect(() => {
-  autoCompleteRef.current = new window.google.maps.places.Autocomplete(inputRef.current,options);
-
-  autoCompleteRef.current.addListener("place_changed", async function () {
+  autoCompleteRef.current = new window.google.maps.places.Autocomplete(searchInput.current,options);
+  autoCompleteRef.current.addListener("place_changed", 
+  async function () {
    const place = await autoCompleteRef.current.getPlace();
-   console.log(place.name);
-   fetchServerData(place.name);
-  }); }, []);
+   setLocation(place.name);
+  }
+  ); 
+}, []);
 
-  async function fetchServerData(locationData) {
-   // const locationData = "towsville"
-   const data = {
-     "location": locationData,
-   };
-   const options ={
-     method: "POST",
-     headers: {
-       'Content-Type': 'application/json'
-       // 'Content-Type': 'text/plain'
-     },
-     body: JSON.stringify(data)
-   }
+console.log(location)
 
-   fetch('/api', options);
-   console.log(data)
- }
-
- fetchServerData();
-  
+ 
  return (
   <div>
-   <label>enter address :</label>
-   <p>Hiii</p>
-   <input ref={inputRef} />
-   <button onClick={() => handleInput()} >Search</button>
+   <p>TESTAPP</p>
+   <input ref={searchInput} />
+   {/* <handleInput/> */}
+   <button onClick={() => props.sendLocation(location)} >Search</button>
   </div>
  );
 };
