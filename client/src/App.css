@@ -36,3 +36,35 @@
     transform: rotate(360deg);
   }
 }
+
+
+
+
+.container-scroll {
+  /* display: flex; */
+  overflow: auto;
+  outline: 1px dashed lightgray;
+  flex: none;
+  width: 100vw;
+  height: 100vh;
+  flex-flow: column nowrap;
+  scroll-snap-type: y mandatory;
+  background-color: rgb(167, 237, 167);
+  /* border: 3px solid black; */
+
+}
+
+
+.test{
+  text-align: center;
+  scroll-snap-align: center;
+  flex: none;
+  border: 3px solid black;
+  line-height: 256px;
+  font-size: 128px;
+  width: 100vw;
+  height: 100vh;
+}
+
+
+
